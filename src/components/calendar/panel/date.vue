@@ -332,6 +332,19 @@
       //   this.timePickerVisible = false;
       // },
 
+      // 年份点击选择
+      handleYearPick(year) {
+        if (this.selectionMode === 'year') {
+          this.date = modifyDate(this.date, year, 0, 1);
+          this.emit(this.date);
+        } else {
+          this.date = changeYearMonthAndClampDate(this.date, year, this.month);
+          // TODO: should emit intermediate value ??
+          // this.emit(this.date, true);
+          this.currentView = 'month';
+        }
+      },
+
       // 月份点击选择
       handleMonthPick(month) {
         if (this.selectionMode === 'month') {
@@ -360,7 +373,7 @@
 
       // 日期点击选择
       handleDatePick(value) {
-        // 日期选择模式为 day 时，需要处理
+        // 日期选择模式为 day 时，目标逻辑
         if (this.selectionMode === 'day') {
           let newDate = this.value
             ? modifyDate(this.value, value.getFullYear(), value.getMonth(), value.getDate())
@@ -384,19 +397,6 @@
           this.emit(value.date);
         } else if (this.selectionMode === 'dates') {
           this.emit(value, true); // set false to keep panel open
-        }
-      },
-
-      // 年份点击选择
-      handleYearPick(year) {
-        if (this.selectionMode === 'year') {
-          this.date = modifyDate(this.date, year, 0, 1);
-          this.emit(this.date);
-        } else {
-          this.date = changeYearMonthAndClampDate(this.date, year, this.month);
-          // TODO: should emit intermediate value ??
-          // this.emit(this.date, true);
-          this.currentView = 'month';
         }
       },
 
@@ -541,7 +541,7 @@
     data() {
       return {
         popperClass: '',
-        date: new Date('2020-09-22'),
+        date: new Date(),
         value: '',
         defaultValue: null, // use getDefaultValue() for time computation
         defaultTime: null,
