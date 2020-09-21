@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <date @pick="handleDatePick"></date>
+    <el-date-picker v-model="value"></el-date-picker>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import date from './components/calendar/panel/date'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    date
+  },
+  data() {
+    return {
+      value: ''
+    }
+  },
+  methods: {
+    handleDatePick(date) {
+      console.log('date', new Date(date).getTime())
+    }
   }
 }
 </script>
