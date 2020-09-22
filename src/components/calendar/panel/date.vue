@@ -262,6 +262,12 @@
         this.userInputTime = null;
       },
 
+      $$emit(value) {
+        // console.log(value)
+
+        this.$emit('m-pick', value)
+      },
+
       // resetDate() {
       //   this.date = new Date(this.date);
       // },
@@ -356,19 +362,22 @@
           // this.emit(this.date);
           this.currentView = 'date';
 
-          console.log('year', this.year)
-          console.log('month', month)
+          // console.log('year', this.year)
+          // console.log('month', month)
 
           // 此处发送请求，获取选择月份的执行情况
+
+          this.$$emit({ mode: 'month', year: this.year, month: month, day: null, week: null })
         }
       },
 
       // 周次点击选择
       handleWeekPick(value) {
 
-        console.log('year week', this.year, Number(value))
+        // console.log('pick week', value)
 
         // 发送周次选择请求
+        this.$$emit(value)
       },
 
       // 日期点击选择
@@ -386,10 +395,16 @@
           this.emit(this.date, this.showTime);
 
           // 点击的日期数据
-          console.log('date', this.date)
+          // console.log('date', this.date)
           // showTime 为 false，不用处理
           // console.log('showTime', this.showTime)
-
+          this.$$emit({ 
+            mode: 'day',
+            year: new Date(this.date).getFullYear(),
+            month: new Date(this.date).getMonth(),
+            day: new Date(this.date).getDate(),
+            week: getWeekNumber(new Date(this.date))
+          })
 
 
 

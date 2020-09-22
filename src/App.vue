@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <date @pick="handleDatePick"></date>
+    <date @m-pick="handlePick"></date>
     <el-date-picker v-model="value"></el-date-picker>
   </div>
 </template>
@@ -19,8 +19,8 @@ export default {
     }
   },
   methods: {
-    handleDatePick(date) {
-      console.log('date', new Date(date).getTime())
+    handlePick(date) {
+      console.log('date', date)
     }
   }
 }

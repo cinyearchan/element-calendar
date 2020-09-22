@@ -411,8 +411,9 @@
         // 触发周次选择
         if (target.className.includes('week')) {
           // console.log(target.innerText)
+          // console.log(this.year, this.month)
 
-          this.$emit('pick-week', target.innerText)
+          this.$emit('pick-week', { mode: 'week', year: this.year, month: this.month, day: null, week: Number(target.innerText) })
           return
         }
 
@@ -424,8 +425,8 @@
 
 
         // console.log('target', target)
-        console.log('row', row)
-        console.log('column', column)
+        // console.log('row', row)
+        // console.log('column', column)
         const newDate = this.getDateOfCell(row, column);
 
         if (this.selectionMode === 'range') {
